@@ -1,0 +1,209 @@
+.swiper-main {
+   background-color: #f9f1e7;
+   &__container {
+      position: relative;
+      @include breakpoint(1110, 1) {
+         &::before {
+            content: "";
+            background-color: #fcf8f3;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            right: -863px;
+            top: 0;
+         }
+      }
+   }
+
+   &__body {
+      padding-top: 135px;
+      position: relative;
+      transition: padding-top 0.2s linear;
+      z-index: 3;
+      padding-bottom: 26px;
+      @include breakpoint($md-2, 1) {
+         display: flex;
+      }
+      @include breakpoint(1050, 0) {
+         padding-top: 110px;
+      }
+      @include breakpoint($md-2, 0) {
+         padding-top: 80px;
+      }
+      @include breakpoint($md-3, 0) {
+         padding-top: 65px;
+      }
+   }
+
+   &__content {
+      position: relative;
+      z-index: 2;
+      @include adaptive-value(margin-bottom, 58, 20, 1);
+      @include breakpoint($md-2, 1) {
+         flex: 0 0 calc((494 / 1240) * 100%);
+         align-self: flex-start;
+      }
+   }
+
+   &__swiper {
+      @include breakpoint($md-2, 1) {
+         padding-left: 25px;
+      }
+      align-self: flex-end;
+      flex: 1 1 auto;
+      min-width: 0;
+   }
+}
+
+.content-main-swiper {
+   background: rgba(255, 255, 255, 0.9);
+   @supports ((-webkit-backdrop-filter: blur(31px)) or (backdrop-filter: blur(31px))) {
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(31px);
+   }
+   @include breakpoint($md-2, 0) {
+      margin-right: -15px;
+      margin-left: -15px;
+   }
+   @include adaptive-value(padding, 50, 15, 1);
+   &__title {
+      font-size: 56px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      @include adaptive-value(font-size, 56, 30, 1);
+   }
+
+   &__text {
+      font-size: 20px;
+      color: #898989;
+      line-height: calc(30 / 20 * 100%);
+      @include adaptive-value(margin-bottom, 48, 20, 1);
+   }
+
+   &__btn {
+      @include adaptive-value(min-height, 78, 35, 1);
+      @include adaptive-value(font-size, 20, 16, 1);
+      color: $white;
+      width: 100%;
+      margin-top: 30px;
+      @media (any-hover: hover) {
+         &:hover {
+            background-color: #be7548;
+         }
+      }
+   }
+}
+
+.main-swiper {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+
+   @include breakpoint($md-2, 0) {
+      align-items: stretch;
+      flex-direction: column-reverse;
+   }
+   &__controls {
+      align-self: stretch;
+
+      @include breakpoint($md-2, 1) {
+         margin-bottom: 32px;
+      }
+      @include breakpoint($md-2, 0) {
+         margin-top: 32px;
+      }
+   }
+   &__body {
+      overflow: visible;
+      @include breakpoint($md-2, 1) {
+         @include adaptive-value(width, 934, 290, 1);
+         // padding-bottom: calc(553 / 934 * 100%);
+      }
+   }
+   &__item {
+      position: relative;
+   }
+   &__description {
+   }
+   &__image {
+      padding-bottom: calc(553 / 934 * 100%);
+      display: block;
+      @include breakpoint($md-2, 0) {
+         margin: 0 -15px;
+      }
+   }
+}
+.controls-swiper {
+   display: flex;
+
+   &__dotts {
+      flex: 1 1 auto;
+   }
+
+   &__arrows {
+      .arrows-swiper__arrow_prev {
+         margin-right: 8px;
+      }
+      @include breakpoint($md-3, 0) {
+         display: none;
+      }
+   }
+}
+.description-main-swiper {
+   display: block;
+   &::-webkit-scrollbar,
+   &::-webkit-scrollbar-thumb {
+      width: 5px;
+      border-radius: 15px;
+   }
+
+   &::-webkit-scrollbar {
+      background-color: #f9f1e7;
+   }
+   &::-webkit-scrollbar-thumb {
+      background-color: #e89f71;
+   }
+   color: inherit;
+   @include breakpoint($md-2, 1) {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+      overflow: auto;
+      @include adaptive-value(padding, 24, 15, 1);
+      @include adaptive-value(min-width, 294, 194, 1);
+      max-height: 290px;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.9);
+      @supports ((-webkit-backdrop-filter: blur(31px)) or (backdrop-filter: blur(31px))) {
+         background: rgba(255, 255, 255, 0.72);
+         backdrop-filter: blur(31px);
+      }
+   }
+   @include breakpoint($md-2, 0) {
+      @include adaptive-value(margin-top, 32, 20, 1);
+   }
+   &__title {
+      margin-bottom: 4px;
+      @include adaptive-value(font-size, 28, 23, 1);
+      font-weight: 600;
+   }
+
+   &__text {
+      color: #616161;
+      line-height: calc(24 / 16 * 100%);
+      margin-bottom: 8px;
+   }
+
+   &__price {
+      display: flex;
+      @include adaptive-value(font-size, 20, 16, 1);
+      font-weight: 600;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: space-between;
+      &::before {
+         margin-right: 5px;
+         font-size: 12px;
+      }
+   }
+}

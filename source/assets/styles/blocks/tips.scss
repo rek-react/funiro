@@ -1,0 +1,90 @@
+.tips {
+   @include adaptive-value(padding-top, 44, 30, 1);
+   @include adaptive-value(padding-bottom, 44, 30, 1);
+   &__container {
+   }
+
+   &__title {
+      @include adaptive-value(margin-bottom, 30, 20, 1);
+   }
+
+   &__body {
+      position: relative;
+   }
+   &__items {
+      @media (any-hover: hover) {
+         margin: -20px;
+         padding: 20px;
+      }
+      @include breakpoint($md-4, 0) {
+         margin: 0 -15px;
+      }
+   }
+   &__row {
+   }
+
+   &__item {
+      height: auto;
+      @media (any-hover: hover) {
+         &:hover {
+            box-shadow: -13px 18px 40px rgba($color: #616161, $alpha: 0.1);
+         }
+      }
+   }
+
+   &__image {
+      display: block;
+      padding-bottom: calc((251 / 391) * 100%);
+   }
+
+   &__description {
+      padding: 16px;
+   }
+
+   &__label {
+      @include adaptive-value(font-size, 24, 18, 1);
+      line-height: calc(33 / 24);
+      font-weight: 600;
+      color: inherit;
+   }
+
+   &__date {
+      color: #898989;
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: calc(21 / 14);
+   }
+   &__arrows {
+      position: absolute;
+      left: -24px;
+      top: 50%;
+      width: calc(100% + 48px);
+      pointer-events: none;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      @include breakpoint($md-2, 0) {
+         left: 0;
+         width: 100%;
+      }
+
+      .arrows-swiper__arrow {
+         pointer-events: all;
+
+         &_prev {
+            @include breakpoint($md-2, 0) {
+            }
+         }
+         &_next {
+            @include breakpoint($md-1, 0) {
+            }
+         }
+      }
+      @include breakpoint($md-3, 0) {
+         display: none;
+      }
+   }
+   &__dotts {
+      margin-top: 25px;
+      justify-content: center;
+   }
+}

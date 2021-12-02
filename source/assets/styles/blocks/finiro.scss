@@ -1,0 +1,59 @@
+.funiro {
+   @include adaptive-value(padding-bottom, 87, 45, 1);
+   &__container {
+   }
+
+   &__subtitle {
+      text-align: center;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: calc(30 / 20);
+      color: #616161;
+      margin-bottom: 8px;
+   }
+
+   &__title {
+      margin-bottom: 20px;
+   }
+
+   &__body {
+      position: relative;
+      @media (any-hover: none) {
+         overflow: auto;
+         -webkit-overflow-scrolling: touch;
+      }
+      display: grid;
+      grid-template-columns: auto;
+      column-gap: 16px;
+      align-items: center;
+      grid-auto-flow: column;
+      @media (any-hover: hover) {
+         justify-content: center;
+      }
+   }
+   &__col {
+      display: flex;
+      flex-wrap: wrap;
+   }
+
+   &__row {
+      display: inline-flex;
+      column-gap: 16px;
+      margin-bottom: 16px;
+      &:last-child {
+         margin-bottom: 0;
+      }
+      &-left-top,
+      &-right-top {
+         align-items: flex-end;
+      }
+
+      &-left-bottom,
+      &-right-bottom {
+         align-items: flex-start;
+      }
+   }
+
+   &__item {
+   }
+}

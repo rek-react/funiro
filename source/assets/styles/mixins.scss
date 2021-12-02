@@ -1,0 +1,70 @@
+@mixin font($font_name, $file_name, $weight, $style) {
+   @font-face {
+      font-family: $font_name;
+      font-display: swap;
+      src: url("../fonts/#{$file_name}.woff") format("woff");
+      font-weight: #{$weight};
+      font-style: #{$style};
+   }
+}
+@mixin adaptive-value($property, $startSize, $minSize, $type) {
+   $addSize: $startSize - $minSize;
+   @if $type==1 {
+      #{$property}: $startSize + px;
+      @media (max-width: #{$maxWidthContainer + px}) {
+         #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidthContainer - 320}));
+      }
+   } @else if $type==2 {
+      #{$property}: $startSize + px;
+      @media (min-width: #{$maxWidthContainer + px}) {
+         #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+      }
+   } @else {
+      #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320}));
+   }
+}
+
+
+
+@mixin breakpoint($br, $type){
+   @if $type==0{
+      @media (max-width: #{$br + px}) {
+         @content
+      }
+   } @else if $type==1{
+      @media (min-width:  #{$br + px}) {
+         @content
+      }
+   }
+}
+
+
+
+@mixin adaptive-marPad($property,$StartTop,$StartRight,$StartBottom,$StartLeft,$MinTop,$MinRight,$MinBottom,$MinLeft,$type) {
+   $addSizeTop: $StartTop - $MinTop;
+   $addSizeRight: $StartRight - $MinRight;
+   $addSizeBottom: $StartBottom - $MinBottom;
+   $addSizeLeft: $StartLeft - $MinLeft;
+   @if $type==1 {
+      #{$property}: $StartTop + px $StartRight + px $StartBottom + px $StartLeft + px;
+      @media (max-width: #{$maxWidthContainer + px}) {
+         #{$property - top} : calc(#{$MinTop + px} + #{$addSizeTop} * ((100vw - 320px) / #{$maxWidthContainer - 320}));
+         #{$property - right}: calc(#{$MinRight + px} + #{$addSizeRight} * ((100vw - 320px) / #{$maxWidthContainer - 320}));
+         #{$property - bottom}: calc(#{$MinBottom + px} + #{$addSizeBottom} * ((100vw - 320px) / #{$maxWidthContainer - 320}));
+         #{$property - left}: calc(#{$MinLeft + px} + #{$addSizeLeft} * ((100vw - 320px) / #{$maxWidthContainer - 320}));
+      }
+   } @else if $type==2 {
+      #{$property}: $StartTop + px $StartRight + px $StartBottom + px $StartLeft + px;
+      @media (max-width: #{$maxWidthContainer + px}) {
+         #{$property - top} : calc(#{$MinTop + px} + #{$addSizeTop} * ((100vw - 320px) / #{$maxWidth - 320}));
+         #{$property - right}: calc(#{$MinRight + px} + #{$addSizeRight} * ((100vw - 320px) / #{$maxWidth - 320}));
+         #{$property - bottom}: calc(#{$MinBottom + px} + #{$addSizeBottom} * ((100vw - 320px) / #{$maxWidth - 320}));
+         #{$property - left}: calc(#{$MinLeft + px} + #{$addSizeLeft} * ((100vw - 320px) / #{$maxWidth - 320}));
+      }
+   } @else {
+      #{$property - top} : calc(#{$MinTop + px} + #{$addSizeTop} * ((100vw - 320px) / #{$maxWidth - 320}));
+         #{$property - right}: calc(#{$MinRight + px} + #{$addSizeRight} * ((100vw - 320px) / #{$maxWidth - 320}));
+         #{$property - bottom}: calc(#{$MinBottom + px} + #{$addSizeBottom} * ((100vw - 320px) / #{$maxWidth - 320}));
+         #{$property - left}: calc(#{$MinLeft + px} + #{$addSizeLeft} * ((100vw - 320px) / #{$maxWidth - 320}));
+   }
+}

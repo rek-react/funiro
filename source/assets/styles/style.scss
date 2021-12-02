@@ -1,0 +1,32 @@
+@import "mixins";
+@import "vars";
+@import "fonts";
+@import "reboot";
+@import "bg";
+@import "forms";
+@import "swiper";
+@import "wrapper&container";
+@import "popup";
+@import "blocks/ui.scss";
+@import "blocks/header.scss";
+@import "blocks/swiper-main.scss";
+@import "blocks/feature.scss";
+@import "blocks/products.scss";
+@import "blocks/rooms-swiper.scss";
+@import "blocks/tips.scss";
+@import "blocks/finiro.scss";
+
+@import "blocks/footer.scss";
+
+body {
+   color: $mainColor;
+   font-family: $fontFamily;
+   font-size: $fontSize;
+   &._lock {
+      overflow: hidden;
+   }
+}
+
+.page {
+   flex: 1 1 auto;
+}

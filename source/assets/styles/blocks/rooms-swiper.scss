@@ -1,0 +1,220 @@
+.rooms {
+   background: #fcf8f3;
+   @include adaptive-value(padding-top, 44, 30, 1);
+   @include adaptive-value(padding-bottom, 44, 30, 1);
+   &__container {
+   }
+
+   &__body {
+      @include breakpoint($md-2, 1) {
+         display: flex;
+      }
+   }
+
+   &__content {
+      flex: 0 0 calc(465 / 1240 * 100%);
+      align-self: center;
+      position: relative;
+      z-index: 3;
+      @include breakpoint($md-2, 1) {
+         @include adaptive-value(padding-right, 86, 20, 1);
+      }
+      @include breakpoint($md-2, 0) {
+         @include adaptive-value(margin-bottom, 40, 20, 1);
+      }
+   }
+
+   &__title {
+      text-align: left;
+      margin-bottom: 14px;
+   }
+
+   &__text {
+      color: #616161;
+      font-weight: 500;
+      line-height: 24 / 16;
+      margin-bottom: 24px;
+   }
+
+   &__btn {
+      min-width: 176px;
+      @media (any-hover: hover) {
+         &:hover {
+            background-color: #be7548;
+         }
+      }
+   }
+
+   &__swiper {
+      min-width: 0;
+      flex: 1 1 auto;
+
+      @include breakpoint($md-4, 0) {
+         margin: 0 -15px;
+      }
+   }
+}
+
+.swiper-rooms {
+   position: relative;
+   &__body {
+      overflow: visible;
+      position: relative;
+      @include breakpoint($md-2, 1) {
+         &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            z-index: 2;
+            top: 0;
+            background: #fcf8f3;
+            width: 100vw;
+            height: 100%;
+            transform: translateX(-100%);
+         }
+      }
+   }
+   &__slide {
+      width: calc(373 / 800 * 100%);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      @include adaptive-value(min-height, 582, 320, 1);
+      &.swiper-slide-active {
+         .swiper-rooms__image {
+            img {
+               height: 100%;
+            }
+         }
+      }
+      @include breakpoint($md-2, 0) {
+         width: 100%;
+      }
+      @include breakpoint($md-4, 0) {
+         width: 100%;
+      }
+   }
+
+   &__image {
+      flex: 1 1 auto;
+      position: relative;
+      img {
+         position: absolute;
+         left: 0;
+         top: 0;
+         transition: height 0.5s linear;
+         width: 100%;
+         height: 85%;
+      }
+   }
+
+   &__content {
+      color: inherit;
+      position: absolute;
+      @include adaptive-value(left, 24, 16, 1);
+      @include adaptive-value(bottom, 24, 16, 1);
+
+      @supports ((-webkit-backdrop-filter: blur(31px)) or (backdrop-filter: blur(31px))) {
+         background: rgba(255, 255, 255, 0.72);
+         backdrop-filter: blur(31px);
+      }
+      &::before {
+         position: absolute;
+         bottom: 0;
+         right: 0;
+         transform: translateX(100%);
+         background-color: #e89f71;
+         color: $white;
+         height: 48px;
+         width: 48px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 14px;
+      }
+   }
+   &__item {
+      @include adaptive-value(padding, 32, 15, 1);
+      max-width: 250px;
+      max-height: 230px;
+      overflow: hidden;
+      &::-webkit-scrollbar,
+      &::-webkit-scrollbar-thumb {
+         width: 5px;
+         border-radius: 15px;
+      }
+
+      &::-webkit-scrollbar {
+         background-color: #f9f1e7;
+      }
+      &::-webkit-scrollbar-thumb {
+         background-color: #e89f71;
+      }
+      @include adaptive-value(min-width, 217, 170, 1);
+      overflow-y: auto;
+      background: rgba(255, 255, 255, 0.9);
+   }
+   &__label {
+      font-weight: 500;
+      color: #616161;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      line-height: 150%;
+   }
+
+   &__line {
+      flex: 0 0 27px;
+      height: 1px;
+      margin: 0 8px -3px 8px;
+      background-color: #616161;
+   }
+   &__text {
+      @include adaptive-value(font-size, 28, 23, 1);
+      font-weight: 600;
+      line-height: 33 / 28;
+   }
+   &__arrows {
+      position: absolute;
+      left: -24px;
+      pointer-events: none;
+      top: 50%;
+      z-index: 3;
+      width: calc(100% + 48px);
+      transform: translateY(-50%);
+      justify-content: space-between;
+      @include breakpoint($md-2, 0) {
+         left: 0;
+         width: 100%;
+      }
+      .arrows-swiper__arrow {
+         pointer-events: all;
+
+         &_prev {
+            @include breakpoint($md-2, 0) {
+               transform: translateX(50%);
+            }
+         }
+         &_next {
+            @include breakpoint($md-1, 0) {
+               transform: translateX(-50%);
+            }
+         }
+      }
+      @include breakpoint($md-4, 0) {
+         display: none;
+      }
+   }
+
+   &__dotts {
+      @include breakpoint($md-3, 1) {
+         position: absolute;
+         left: 428px;
+         bottom: 24px;
+      }
+      @include breakpoint($md-3, 0) {
+         margin-top: 30px;
+      }
+   }
+}

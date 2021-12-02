@@ -1,0 +1,139 @@
+.logo {
+   color: #000;
+   display: inline-block;
+   font-weight: 700;
+   font-size: 24px;
+   line-height: calc((29 / 24) * 100%);
+}
+
+.swiper-pagination-bullets {
+   display: flex;
+   align-items: center;
+   .swiper-pagination-bullet {
+      height: 27px;
+      border-radius: 50%;
+      display: flex;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex: 0 0 27px;
+      margin-right: 12px;
+      &:last-child {
+         margin-right: 0;
+      }
+      &::before {
+         content: "";
+         border-radius: 50%;
+         background-color: #d8d8d8;
+         flex: 0 0 11px;
+         height: 11px;
+      }
+      &::after {
+         content: "";
+         position: absolute;
+         left: 0;
+         border-radius: 50%;
+         top: 0;
+         width: 100%;
+         height: 100%;
+         border: 2px solid transparent;
+      }
+      &-active {
+         &::before {
+            background-color: #e89f71;
+         }
+         &::after {
+            border: 2px solid #e89f71;
+         }
+      }
+   }
+   @include breakpoint($md-3, 0) {
+      justify-content: center;
+   }
+}
+.arrows-swiper {
+   display: flex;
+   align-items: center;
+   &__arrow {
+      flex: 0 0 48px;
+      position: relative;
+      height: 48px;
+      width: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &::before {
+         color: #e89f71;
+         position: relative;
+         z-index: 1;
+         font-size: 12px;
+      }
+      &::after {
+         content: "";
+         position: absolute;
+         left: 0;
+         top: 0;
+         transition: all 0.15s linear;
+         opacity: 0.3;
+         border-radius: 50%;
+         background: #e89f71;
+         width: 100%;
+         height: 100%;
+      }
+      @media (any-hover: hover) {
+         &:hover {
+            &::before {
+               color: $white;
+            }
+            &::after {
+               opacity: 1;
+            }
+         }
+      }
+      &_prev {
+         &::before {
+            transform: rotate(90deg);
+         }
+      }
+
+      &_next {
+         &::before {
+            transform: rotate(-90deg);
+         }
+      }
+      &-white {
+         box-shadow: 0 4px 4px rgba($color: #000000, $alpha: 0.25);
+         &::after {
+            background-color: $white;
+            opacity: 1;
+         }
+         @media (any-hover: hover) {
+            &:hover {
+               &::before {
+                  color: $white;
+               }
+               &::after {
+                  background: #e89f71;
+               }
+            }
+         }
+      }
+   }
+}
+.title {
+   @include adaptive-value(font-size, 40, 28, 1);
+   font-weight: 700;
+   text-align: center;
+   line-height: calc(48 / 40);
+}
+.fly-image.bg {
+   position: fixed;
+   z-index: 6;
+   opacity: 1;
+   transition: all 1s linear;
+   @include breakpoint($md-3, 0) {
+      transition: all 0.5s linear;
+   }
+}

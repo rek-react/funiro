@@ -1,0 +1,496 @@
+.header {
+   background-color: #f9f1e7;
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 100%;
+   min-height: 30px;
+   @include breakpoint($md-3, 0) {
+      min-height: 5px;
+   }
+   &._fixed {
+      .header__wrapper {
+         background-color: rgba($color: rgb(202, 199, 199), $alpha: 0.95);
+      }
+      .header__body {
+         min-height: 80px;
+         @include breakpoint($md-2, 0) {
+            min-height: 70px;
+         }
+         @include breakpoint($md-3, 0) {
+            min-height: 55px;
+         }
+      }
+   }
+
+   &__wrapper {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+
+      z-index: 100;
+   }
+   &__container {
+      position: relative;
+   }
+   &__body {
+      min-height: 125px;
+      display: flex;
+      align-items: center;
+      @include breakpoint(1050, 0) {
+         grid-template-columns: 1fr auto auto;
+         min-height: 100px;
+      }
+      @include breakpoint($md-2, 0) {
+         min-height: 70px;
+      }
+      @include breakpoint($md-3, 0) {
+         min-height: 55px;
+      }
+      &._active-search-form {
+         .search-form__item {
+            top: 100%;
+            opacity: 1;
+            visibility: visible;
+         }
+         @include breakpoint($md-3, 0) {
+            .menu-header {
+               padding-top: 110px;
+            }
+         }
+      }
+   }
+
+   &__main {
+      display: flex;
+      align-items: center;
+      flex: 0 0 calc((494 / 1240) * 100%);
+      @include breakpoint(1050, 0) {
+         flex: 1 1 auto;
+      }
+   }
+   &__search {
+      flex: 1 1 auto;
+      @include adaptive-value(padding-right, 30, 15, 1);
+      @include breakpoint(1050, 0) {
+         flex: 0 1 auto;
+      }
+   }
+
+   &__burger {
+      display: none;
+      @include breakpoint($md-3, 0) {
+         display: block;
+         position: relative;
+         width: 30px;
+         @include adaptive-value(margin-left, 30, 15, 1);
+         height: 20px;
+         z-index: 5;
+         cursor: pointer;
+         &::before,
+         span,
+         &::after {
+            position: absolute;
+            background-color: $mainColor;
+            width: 100%;
+            height: 2px;
+            left: 0;
+            transition: all 0.2s ease;
+         }
+         &::before {
+            content: "";
+            top: 0;
+         }
+         span {
+            top: 50%;
+            transform: translateY(-50%);
+         }
+         &::after {
+            content: "";
+            bottom: 0;
+         }
+         &._active::before {
+            top: 50%;
+            transform: translateY(-50%) rotate(-45deg);
+         }
+         &._active span {
+            transform: scale(0);
+         }
+         &._active::after {
+            bottom: 50%;
+            transform: translateY(50%) rotate(45deg);
+         }
+      }
+   }
+   &__logo {
+      position: relative;
+      z-index: 5;
+   }
+}
+.container {
+}
+
+.menu-header {
+   flex: 0 1 420px;
+   padding: 0 20px;
+   @include breakpoint($md-3, 0) {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      overflow: auto;
+      height: 100%;
+      z-index: 2;
+      transition: all 0.2s ease;
+      background-color: rgba($color: rgb(202, 199, 199), $alpha: 9.3);
+      padding: 60px 15px 30px;
+      &._show {
+         left: 0;
+         &::before {
+            left: 0;
+         }
+      }
+      &::before {
+         content: "";
+         position: fixed;
+         left: -100%;
+         transition: all 0.2s ease;
+         top: 0;
+         z-index: 3;
+         width: 100%;
+         min-height: 55px;
+         background-color: rgba($color: rgb(202, 199, 199), $alpha: 9.3);
+      }
+   }
+   &__list {
+      @include breakpoint($md-3, 1) {
+         display: flex;
+         align-items: center;
+         justify-content: space-evenly;
+         flex-wrap: wrap;
+      }
+   }
+
+   &__item {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 0;
+      margin: 0 5px;
+      @media (any-hover: hover) {
+         &:hover {
+            .menu-header__sub-list {
+               opacity: 1;
+               pointer-events: all;
+               visibility: visible;
+               transform: translateY(0px);
+            }
+            .menu-header__link,
+            .menu-header__arrow::before {
+               color: #e89f71;
+            }
+            .menu-header__arrow::before {
+               transform: rotate(-180deg);
+            }
+         }
+      }
+      &._hover {
+         .menu-header__sub-list {
+            opacity: 1;
+            pointer-events: all;
+            visibility: visible;
+            display: block;
+            transform: translateY(0px);
+         }
+         .menu-header__link,
+         .menu-header__arrow::before {
+            color: #e89f71;
+         }
+         .menu-header__arrow::before {
+            transform: rotate(-180deg);
+         }
+      }
+      @include breakpoint($md-3, 0) {
+         margin: 0 0 20px 0;
+         &:last-child {
+            margin-bottom: 0;
+         }
+      }
+      &._init {
+         .menu-header__arrow._active::before {
+            color: #e89f71;
+            transform: rotate(-180deg);
+         }
+      }
+   }
+
+   &__link {
+      color: inherit;
+      font-weight: 500;
+      transition: color 0.2s linear;
+      @include breakpoint($md-3, 0) {
+         font-size: 20px;
+      }
+   }
+   &__arrow {
+      padding-left: 10px;
+      &::before {
+         font-size: 9px;
+         transition: all 0.2s linear;
+         @include breakpoint($md-3, 0) {
+            font-size: 12px;
+         }
+      }
+   }
+   &__sub-list {
+      background-color: #e89f71;
+      position: relative;
+      padding: 15px;
+      flex: 1 1 100%;
+      @include breakpoint($md-3, 1) {
+         transition: all 0.2s linear;
+         position: absolute;
+         opacity: 0;
+         pointer-events: none;
+         visibility: hidden;
+         transform: translateY(-10px);
+         left: 0;
+         top: 100%;
+         min-width: 200px;
+      }
+      @include breakpoint($md-3, 0) {
+         margin-top: 5px;
+      }
+   }
+   &__sub-item {
+      margin-bottom: 10px;
+      &:last-child {
+         margin-bottom: 0;
+      }
+      @include breakpoint($md-3, 0) {
+         margin-bottom: 20px;
+      }
+   }
+   &__sub-link {
+      color: $white;
+      font-size: 14px;
+      @include breakpoint($md-2, 1) {
+         &:hover {
+            text-decoration: underline;
+         }
+      }
+      @include breakpoint($md-3, 0) {
+         font-size: 16px;
+      }
+   }
+}
+.search-form {
+   &__body {
+      max-width: 470px;
+   }
+
+   &__icon {
+      display: block;
+      @include breakpoint(1050, 1) {
+         display: none;
+      }
+   }
+
+   &__item {
+      display: flex;
+      align-items: center;
+      background-color: $white;
+      @include breakpoint(1050, 0) {
+         position: absolute;
+         transition: all 0.2s linear;
+         left: 0;
+         z-index: 6;
+         top: -100%;
+         width: 100%;
+         opacity: 0;
+         visibility: hidden;
+      }
+      @include breakpoint($md-3, 0) {
+      }
+   }
+
+   &__button {
+      flex: 0 0 44px;
+      font-size: 18px;
+   }
+
+   &__input {
+      height: 45px;
+      width: 100%;
+      color: #616161;
+      padding-right: 15px;
+      font-size: 14px;
+   }
+}
+
+.actions-header {
+   position: relative;
+   z-index: 5;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   @include adaptive-value(column-gap, 30, 15, 1);
+   &__favorite {
+      @include breakpoint($md-2, 1) {
+         transition: all 0.2s linear;
+         &:hover {
+            color: #e89f71;
+         }
+      }
+   }
+
+   &__basket {
+   }
+   &__avatar {
+      display: block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      @include breakpoint($md-4, 0) {
+         width: 35px;
+         height: 35px;
+      }
+   }
+}
+
+.cart-header {
+   &__cart {
+      position: relative;
+      span {
+         position: absolute;
+         right: -10px;
+         top: -10px;
+         border-radius: 50%;
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         min-width: 20px;
+         padding: 0 2px;
+         height: 20px;
+         background-color: #e89f71;
+         font-size: 12px;
+         color: $white;
+         @include breakpoint($md-4, 0) {
+            right: -7px;
+            top: -7px;
+            width: 17px;
+            height: 17px;
+         }
+      }
+      @include breakpoint($md-2, 1) {
+         transition: all 0.2s linear;
+         &:hover {
+            color: #e89f71;
+         }
+      }
+   }
+
+   &__body {
+      position: absolute;
+      top: 65px;
+      right: 0;
+      min-width: 280px;
+      z-index: 7;
+      padding: 15px;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.2s ease;
+      background-color: #f9f1e7;
+      border: 1px solid #e0e0e0;
+      &._active {
+         visibility: visible;
+         opacity: 1;
+      }
+      @include breakpoint($md-2, 0) {
+         top: 60px;
+      }
+      @include breakpoint($md-3, 0) {
+         position: fixed;
+         top: 55px;
+         width: 100%;
+         left: 0;
+      }
+   }
+
+   &__list {
+   }
+}
+
+.list-cart {
+   max-height: 300px;
+   overflow: auto;
+   &::-webkit-scrollbar,
+   &::-webkit-scrollbar-thumb {
+      width: 5px;
+      border-radius: 15px;
+   }
+
+   &::-webkit-scrollbar {
+      background-color: #f9f1e7;
+   }
+   &::-webkit-scrollbar-thumb {
+      background-color: #e89f71;
+   }
+   &__item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      &:last-child {
+         margin-bottom: 0;
+      }
+   }
+   &__image {
+      flex: 0 0 100px;
+      height: 100px;
+      margin-right: 15px;
+   }
+   &__body {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+   }
+   &__title {
+      color: inherit;
+      margin-bottom: 10px;
+      font-weight: 600;
+      @media (any-hover: hover) {
+         transition: all 0.1s linear;
+         &:hover {
+            color: #e89f71;
+         }
+      }
+   }
+   &__quantity {
+      font-size: 14px;
+      margin-bottom: 7px;
+   }
+   &__delete {
+      color: red;
+      font-size: 14px;
+      @media (any-hover: hover) {
+         &:hover {
+            text-decoration: underline;
+         }
+      }
+   }
+}
+.icon-header {
+   display: block;
+   font-size: 24px;
+   position: relative;
+   z-index: 5;
+   color: #262f56;
+   @include breakpoint($md-4, 0) {
+      font-size: 20px;
+   }
+}
