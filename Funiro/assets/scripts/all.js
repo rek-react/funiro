@@ -93,110 +93,6 @@ function _slideToggle(target, duration = 500) {
       return _slideUp(target, duration)
    }
 };
-class Spoilers {
-   constructor(spoilers) {
-      this.spoilers = spoilers
-      const spoilersRegular = Array.from(this.spoilers).filter(item => {
-         return !item.dataset.spoilers.split(',')[0];
-      })
-      if (spoilersRegular) {
-         this.initSpollers(spoilersRegular)
-      }
-      const spoilersMedia = Array.from(this.spoilers).filter(item => {
-         return item.dataset.spoilers.split(',')[0];
-      })
-      if (spoilersMedia) {
-         this.mediaSpoilers(spoilersMedia)
-      }
-   }
-   mediaSpoilers(spoilersMedia) {
-      const breakpointArray = []
-      spoilersMedia.forEach(item => {
-         const params = item.dataset.spoilers
-         const breakpoint = {}
-         const paramsArray = params.split(',')
-         breakpoint.value = paramsArray[0]
-         breakpoint.type = paramsArray[1] ? paramsArray[1].trim() : 'max'
-         breakpoint.item = item
-         breakpointArray.push(breakpoint)
-      })
-      let mediaQueries = breakpointArray.map(item => {
-         return '(' + item.type + '-width: ' + item.value + 'px),' + item.value + ',' + item.type
-      })
-      mediaQueries = mediaQueries.filter((item, index, array) => {
-         return array.indexOf(item) === index
-      })
-      mediaQueries.forEach(breakpoint => {
-         const paramsArray = breakpoint.split(',')
-         const mediaBreakpoint = paramsArray[1]
-         const mediaType = paramsArray[2]
-         const matchMedia = window.matchMedia(paramsArray[0])
-         const spoilerArray = breakpointArray.filter(item => {
-            return item.value === mediaBreakpoint && item.type === mediaType
-         })
-         matchMedia.addEventListener('change', () => {
-            this.initSpollers(spoilerArray, matchMedia)
-         })
-         this.initSpollers(spoilerArray, matchMedia)
-      })
-   }
-   initSpollers(spoilerArray, matchMedia = false) {
-      spoilerArray.forEach(spoilerBlock => {
-         spoilerBlock = matchMedia ? spoilerBlock.item : spoilerBlock
-         if (matchMedia.matches || !matchMedia) {
-            spoilerBlock.classList.add('_init')
-            spoilerBlock.addEventListener('click', this.setSpoilerAction)
-            this.initSpoilerBody(spoilerBlock)
-         } else {
-            spoilerBlock.classList.remove('_init')
-            spoilerBlock.removeEventListener('click', this.setSpoilerAction)
-            this.initSpoilerBody(spoilerBlock, false)
-         }
-      })
-   }
-   initSpoilerBody(spoilerBlock, hideSpoilerBody = true) {
-      const spoilerTitles = spoilerBlock.querySelectorAll('[data-spoiler]')
-      spoilerTitles.forEach(spoilerTitle => {
-         if (hideSpoilerBody) {
-            spoilerTitle.removeAttribute('tabindex')
-            if (!spoilerTitle.classList.contains('_active')) {
-               spoilerTitle.nextElementSibling.hidden = true
-            }
-         } else {
-            spoilerTitle.setAttribute('tabindex', '-1')
-            spoilerTitle.nextElementSibling.hidden = false
-         }
-      })
-   }
-   setSpoilerAction(event) {
-      if (event.target.closest('[data-spoiler]')) {
-         const spoilerTitle = event.target.closest('[data-spoiler]')
-         const spoilerBlock = spoilerTitle.closest('[data-spoilers]')
-         const oneSpoiler = spoilerBlock.hasAttribute('data-one-spoiler') ? true : false
-         if (!spoilerBlock.querySelectorAll('._slide').length) {
-            if (oneSpoiler && !spoilerTitle.classList.contains('_active')) {
-               const spoilerActiveTitle = spoilerBlock.parentElement.querySelector('[data-spoiler]._active')
-               if (spoilerActiveTitle) {
-                  spoilerActiveTitle.classList.remove('_active')
-                  _slideUp(spoilerActiveTitle.nextElementSibling, 500)
-               }
-            }
-            spoilerTitle.classList.toggle('_active')
-            _slideToggle(spoilerTitle.nextElementSibling, 500)
-         }
-
-         event.preventDefault()
-      }
-
-   }
-
-}
-const spoilersArray = document.querySelectorAll('[data-spoilers]')
-if (spoilersArray) {
-   new Spoilers(spoilersArray)
-}
-
-;
 
 
 "use strict";
@@ -354,56 +250,6 @@ DynamicAdapt.prototype.arraySort = function (arr) {
 
 const da = new DynamicAdapt("max");
 da.init();;
-class Form {
-   constructor(forms) {
-      this.forms = forms
-      this.requery(this.forms)
-   }
-   requery(forms) {
-      forms.forEach(form => {
-         this.inputReqs = form.querySelectorAll('#req')
-         this.btn = form.querySelector('button[type="submit"]')
-         this.submitForm(this.btn, this.inputReqs)
-      })
-
-   }
-   submitForm(btn, inputReqs) {
-      inputReqs.forEach(inputReq => {
-         btn.addEventListener('click', (event) => {
-            if (inputReq.value === '') {
-               this.addError(inputReq)
-               event.preventDefault()
-            }
-         })
-         inputReq.addEventListener('focus', () => {
-            this.removeError(inputReq)
-         })
-      })
-   }
-   addError(inputReq) {
-      if (!inputReq.classList.contains('_error')) {
-         inputReq.classList.add('_error')
-         var classError = 'error'
-         var textError = 'Заполните поле'
-         var errorGroup = inputReq.parentElement
-         errorGroup.insertAdjacentHTML(
-            'beforeend',
-            '<div class="' + classError + '">' + textError + '</div>'
-         )
-      }
-   }
-   removeError(inputReq) {
-      if (inputReq.classList.contains('_error')) {
-         inputReq.classList.remove('_error')
-         inputReq.parentElement.querySelector('.error').remove()
-      }
-   }
-}
-const formMain = document.querySelectorAll('#form')
-if (formMain) {
-   new Form(formMain)
-}
-;
 
 const BODY = document.body
 
@@ -844,7 +690,5 @@ if (document.querySelector('.tips__items')) {
 }
 
 if (document.querySelector('.gallery')) {
-   const slider = new Gallery(document.querySelector('.gallery'), {
-      mouse: true,
-   });
+   const slider = new Gallery(document.querySelector('.gallery'));
 }
